@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | SOS</title>
+    <meta name="description" content="Register to SOS and share your idle capacity and monetize your devices processing, storage and internet.">
+    <title>Register to SOS</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
+    <style>
+        /* Common styles for both portrait and landscape */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Portrait styles */
+        @media (orientation: portrait) {
+            body {
+                background-color: #f0f0f0; /* Add any styling you want for portrait mode */
+                background-image: url("TemplateData/please-rotate.png");
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed; /* Esto evita que la imagen se desplace con el contenido */
+                background-size: cover;
+            }
+
+            #unity-container {
+                transform: rotate(90deg); /* Rotate the Unity content 90 degrees */
+                transform-origin: top left; /* Rotate around the top left corner */
+                width: 100vh; /* Use viewport height as width to fill the screen */
+                height: 100vw; /* Use viewport width as height to fill the screen */
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        /* Landscape styles */
+        @media (orientation: landscape) {
+            body {
+                background-color: #fff; /* Add any styling you want for landscape mode */
+            }
+
+            #unity-container {
+                transform: none; /* Reset rotation in landscape mode */
+                width: 100%; /* Allow content to take full width */
+                height: 100%; /* Allow content to take full height */
+            }
+        }
+    </style>
+</head>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=1920 height=1080></canvas>
@@ -17,10 +61,10 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
+      <div id="unity-footer" style="display: none;">
+        <!--<div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">SOS</div>
+        <div id="unity-build-title">SOS</div>-->
       </div>
     </div>
     <script>
@@ -77,14 +121,8 @@
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
         container.className = "unity-mobile";
         canvas.className = "unity-mobile";
-
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
         // config.devicePixelRatio = 1;
